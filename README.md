@@ -24,3 +24,14 @@ Commands:
 
 https://github.com/raph6/cli-file-enkryptor
 ```
+
+## Exemple of use
+```shell
+# encryption
+enkryptor encrypt my-file.txt mypassword
+# my-file.txt.enc is created
+
+# decryption
+enkryptor decrypt my-file.txt.enc mypassword
+# my-file.txt is created
+```

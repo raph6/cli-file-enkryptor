@@ -25,7 +25,7 @@ https://github.com/raph6/cli-file-enkryptor
 
 EOF;;
 }
-// var_dump($_SERVER);
+
 if (isset($argv[1])) {
     $command_name = $argv[1];
 
