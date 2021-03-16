@@ -41,7 +41,7 @@ if (isset($argv[1])) {
                     echo "enkryptor: '" . $argv[2] . "' must be a file.\n";
                 }
             } else {
-                echo "Usage : enkryptor COMMAND INPUT-FILE PASSWORD\n";
+                echo "Usage : enkryptor encrypt INPUT-FILE PASSWORD\n";
             }
 
             break;
@@ -57,7 +57,7 @@ if (isset($argv[1])) {
                     echo "enkryptor: '" . $argv[2] . "' must be a file.\n";
                 }
             } else {
-                echo "Usage : enkryptor COMMAND INPUT-FILE PASSWORD\n";
+                echo "Usage : enkryptor decrypt INPUT-FILE PASSWORD\n";
             }
             break;
 
