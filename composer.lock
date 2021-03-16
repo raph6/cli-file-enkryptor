@@ -1,0 +1,59 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "ef4a2511e012d36bb97143ec3acf4024",
+    "packages": [
+        {
+            "name": "raph6/enkryptor",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raph6/enkryptor.git",
+                "reference": "eaa2c261b627c8a68bd6863eb97b5691a5697fd2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raph6/enkryptor/zipball/eaa2c261b627c8a68bd6863eb97b5691a5697fd2",
+                "reference": "eaa2c261b627c8a68bd6863eb97b5691a5697fd2",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "raph",
+                    "email": "raphael.bleuzet@epitech.eu"
+                }
+            ],
+            "description": "Encryption module based on openssl",
+            "support": {
+                "issues": "https://github.com/raph6/enkryptor/issues",
+                "source": "https://github.com/raph6/enkryptor/tree/1.0.5"
+            },
+            "time": "2021-02-17T16:54:29+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}

@@ -1,0 +1,77 @@
+#!/usr/bin/php -f
+<?php
+
+if (php_sapi_name() !== 'cli') {
+    exit;
+}
+
+require __DIR__ . '/vendor/autoload.php';
+
+use raph6\Enkryptor\Enkryptor;
+
+function help () {
+    echo <<<EOF
+Welcome to CLI Enkryptor by Raphaël BLEUZET
+
+Usage : enkryptor COMMAND INPUT-FILE PASSWORD
+
+Commands:
+  encrypt    Encrypt your file
+  decrypt    Decrypt your file
+  help       This 
+
+
+https://github.com/raph6/cli-file-enkryptor
+
+EOF;;
+}
+// var_dump($_SERVER);
+if (isset($argv[1])) {
+    $command_name = $argv[1];
+
+    switch ($command_name) {
+        case 'encrypt':
+            if (isset($argv[2]) && isset($argv[3])) {
+                if (is_file($argv[2])) {
+                    $output = $_SERVER['PWD'] . '/' . basename($argv[2]) . '.enc';
+                    $encrypted = Enkryptor::encrypt(file_get_contents($argv[2]), $argv[3]);
+                    file_put_contents($output, $encrypted);
+                    echo 'OUTPUT: ' . $output . "\n";
+                } else {
+                    echo "enkryptor: '" . $argv[2] . "' must be a file.\n";
+                }
+            } else {
+                echo "Usage : enkryptor COMMAND INPUT-FILE PASSWORD\n";
+            }
+
+            break;
+
+        case 'decrypt':
+            if (isset($argv[2]) && isset($argv[3])) {
+                if (is_file($argv[2])) {
+                    $output = $_SERVER['PWD'] . '/' . str_replace('.enc', '', basename($argv[2]));
+                    $decrypted = Enkryptor::decrypt(file_get_contents($argv[2]), $argv[3]);
+                    file_put_contents($output, $decrypted);
+                    echo 'OUTPUT: ' . $output . "\n";
+                } else {
+                    echo "enkryptor: '" . $argv[2] . "' must be a file.\n";
+                }
+            } else {
+                echo "Usage : enkryptor COMMAND INPUT-FILE PASSWORD\n";
+            }
+            break;
+
+        case 'help':        
+            help();
+            break;
+        
+        default:
+            echo "enkryptor: '" . $argv[1] . "' is not an enkryptor command.\n";
+            break;
+    }
+} else {
+    help();
+}
+
+
+

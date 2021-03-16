@@ -1,0 +1,5 @@
+{
+    "require": {
+        "raph6/enkryptor": "^1.0"
+    }
+}
