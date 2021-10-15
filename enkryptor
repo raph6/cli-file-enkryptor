@@ -23,55 +23,96 @@ Commands:
 
 https://github.com/raph6/cli-file-enkryptor
 
-EOF;;
+EOF;
+}
+
+
+/**
+ * echo string then exit with status 1
+ * @param string $message
+ */
+function exitError(string $message): void
+{
+    echo $message . "\n";
+    exit(1);
+}
+
+/**
+ * encrypt the file who's in the current directory,
+ * exit with error if encrypted file with same filename
+ * exist in current folder
+ * @param string $filename
+ * @param string $password
+ */
+function encrypt(string $filename, string $password): void
+{
+    if (is_file($filename)) {
+        $pwd = $_SERVER["PWD"];
+        $filePath = $pwd . DIRECTORY_SEPARATOR . $filename;
+        $encryptedFilePath = $filePath . ".enc";
+        if (file_exists($encryptedFilePath)) {
+            exitError(sprintf("enkryptor: file '%s' already exist\n", $filename . ".enc"));
+        }
+        $fileContent = file_get_contents($filePath);
+        $encryptedContent = Enkryptor::encrypt($fileContent, $password);
+        file_put_contents($encryptedFilePath, $encryptedContent);
+        echo 'OUTPUT: ' . $encryptedFilePath . "\n";
+    } else {
+        exitError(sprintf("enkryptor: '%s' must be a file.\n", $filename));
+    }
+}
+
+/**
+ * encrypt the file who's in the current directory
+ * with a password, exit with error if decrypted file
+ * is in the same directory or if password is wrong
+ * @param string $encryptedFilename
+ * @param string $password
+ */
+function decrypt(string $encryptedFilename, string $password): void
+{
+    if (is_file($encryptedFilename)) {
+        $decryptedFileName = substr($encryptedFilename, 0, -4);
+        $decryptedFilePath = $_SERVER['PWD'] . DIRECTORY_SEPARATOR . $decryptedFileName;
+        $encryptedFilePath = $decryptedFilePath . ".enc";
+        if (file_exists($decryptedFilePath)) {
+            exitError(sprintf("enkryptor: File '%s' already exist", $decryptedFileName));
+        }
+        $decryptedContent = Enkryptor::decrypt(file_get_contents($encryptedFilePath), $password);
+        if ($decryptedContent === false) {
+            exitError(sprintf("enkryptor: Invalid password for file '%s'", $encryptedFilename));
+        }
+        file_put_contents($decryptedFilePath, $decryptedContent);
+        echo 'OUTPUT: ' . $decryptedFilePath . "\n";
+    } else {
+        exitError(sprintf("enkryptor: '%s' must be a file", $encryptedFilename));
+    }
 }
 
 if (isset($argv[1])) {
-    $command_name = $argv[1];
-
-    switch ($command_name) {
+    $commandName = $argv[1];
+    switch ($commandName) {
         case 'encrypt':
-            if (isset($argv[2]) && isset($argv[3])) {
-                if (is_file($argv[2])) {
-                    $output = $_SERVER['PWD'] . '/' . basename($argv[2]) . '.enc';
-                    $encrypted = Enkryptor::encrypt(file_get_contents($argv[2]), $argv[3]);
-                    file_put_contents($output, $encrypted);
-                    echo 'OUTPUT: ' . $output . "\n";
-                } else {
-                    echo "enkryptor: '" . $argv[2] . "' must be a file.\n";
-                }
+            if (isset($argv[2], $argv[3])) {
+                encrypt($argv[2], $argv[3]);
             } else {
                 echo "Usage : enkryptor encrypt INPUT-FILE PASSWORD\n";
             }
-
             break;
-
         case 'decrypt':
-            if (isset($argv[2]) && isset($argv[3])) {
-                if (is_file($argv[2])) {
-                    $output = $_SERVER['PWD'] . '/' . str_replace('.enc', '', basename($argv[2]));
-                    $decrypted = Enkryptor::decrypt(file_get_contents($argv[2]), $argv[3]);
-                    file_put_contents($output, $decrypted);
-                    echo 'OUTPUT: ' . $output . "\n";
-                } else {
-                    echo "enkryptor: '" . $argv[2] . "' must be a file.\n";
-                }
+            if (isset($argv[2], $argv[3])) {
+                decrypt($argv[2], $argv[3]);
             } else {
                 echo "Usage : enkryptor decrypt INPUT-FILE PASSWORD\n";
             }
             break;
-
-        case 'help':        
+        case 'help':
             help();
             break;
-        
         default:
-            echo "enkryptor: '" . $argv[1] . "' is not an enkryptor command.\n";
+            exitError(sprintf("enkryptor: '%s' is not an valid command", $commandName));
             break;
     }
 } else {
     help();
 }
-
-
-
