@@ -12,7 +12,7 @@ sudo ln -s "$(pwd)/enkryptor" /usr/local/bin/enkryptor
 
 ## Usage
 ```
-Welcome to CLI Enkryptor by Raphaël BLEUZET
+Welcome to CLI Enkryptor
 
 Usage : enkryptor COMMAND INPUT-FILE PASSWORD
 
