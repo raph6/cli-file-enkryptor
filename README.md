@@ -37,4 +37,4 @@ enkryptor decrypt my-file.txt.enc mypassword
 ```
 
 ## Special thanks
-[Ismai Aydogmus](https://github.com/isma91) for refactoring the code and improving the features
+[Ismail Aydogmus](https://github.com/isma91) for refactoring the code and improving the features
