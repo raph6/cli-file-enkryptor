@@ -35,3 +35,6 @@ enkryptor encrypt my-file.txt mypassword
 enkryptor decrypt my-file.txt.enc mypassword
 # my-file.txt is created
 ```
+
+## Special thanks
+[Ismai Aydogmus](https://github.com/isma91) for refactoring the code and improving the features
