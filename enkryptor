@@ -11,7 +11,7 @@ use raph6\Enkryptor\Enkryptor;
 
 function help () {
     echo <<<EOF
-Welcome to CLI Enkryptor by Raphaël BLEUZET
+Welcome to CLI Enkryptor
 
 Usage : enkryptor COMMAND INPUT-FILE PASSWORD
 
